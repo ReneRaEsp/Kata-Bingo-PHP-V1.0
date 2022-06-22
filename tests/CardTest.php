@@ -3,6 +3,8 @@
 use PHPUnit\Framework\TestCase;
 use App\Card;
 
+use function PHPUnit\Framework\assertTrue;
+
 class CardTest extends TestCase
 {
 	protected $card;
@@ -43,8 +45,84 @@ class CardTest extends TestCase
 		}
 
 		for ($i = 0; $i <= 3; $i++) {
-			$rangeN = $this->card->getColumnN()[$i] >= 31 && $this->card->getColumnN()[$i] <= 45;
+			$rangeN = $this->card->getColumnN()[$i] === 0 || $this->card->getColumnN()[$i] >= 31 && $this->card->getColumnN()[$i] <= 45;
 			$this->assertTrue($rangeN);
 		}
+	}
+
+	public function test_numbers_cannot_repeat()
+	{
+		$this->setUp();
+
+		$previous_numbers = [];
+		$i = 0;
+
+		foreach ($this->card->getColumnB() as $number) {
+			foreach ($previous_numbers as $prev) {
+				if ($number === $prev) {
+					assertTrue(false);
+				} else {
+					assertTrue(true);
+				}
+			}
+			$previous_numbers[$i] = $number;
+		}
+
+		$previous_numbers = [];
+		$i = 0;
+
+		foreach ($this->card->getColumnI() as $number) {
+			foreach ($previous_numbers as $prev) {
+				if ($number === $prev) {
+					assertTrue(false);
+				} else {
+					assertTrue(true);
+				}
+			}
+			$previous_numbers[$i] = $number;
+		}
+
+		$previous_numbers = [];
+		$i = 0;
+		foreach ($this->card->getColumnN() as $number) {
+			foreach ($previous_numbers as $prev) {
+				if ($number === $prev) {
+					assertTrue(false);
+				} else {
+					assertTrue(true);
+				}
+			}
+			$previous_numbers[$i] = $number;
+		}
+
+		$previous_numbers = [];
+		$i = 0;
+		foreach ($this->card->getColumnG() as $number) {
+			foreach ($previous_numbers as $prev) {
+				if ($number === $prev) {
+					assertTrue(false);
+				} else {
+					assertTrue(true);
+				}
+			}
+			$previous_numbers[$i] = $number;
+		}
+
+		$previous_numbers = [];
+		$i = 0;
+
+		foreach ($this->card->getColumnO() as $number) {
+			foreach ($previous_numbers as $prev) {
+				if ($number === $prev) {
+					assertTrue(false);
+				} else {
+					assertTrue(true);
+				}
+			}
+			$previous_numbers[$i] = $number;
+		}
+
+		$previous_numbers = [];
+		$i = 0;
 	}
 }

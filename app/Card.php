@@ -10,26 +10,31 @@ class Card
 	protected $column_g;
 	protected $column_o;
 
+	protected $previous_numbers = [];
+
 
 	public function __construct()
 	{
-
-		for ($i = 0; $i <= 4; $i++) {
-			$this->column_b[$i] = rand(1, 15);
-			$this->column_i[$i] = rand(16, 30);
-			$this->column_g[$i] = rand(46, 60);
-			$this->column_o[$i] = rand(61, 75);
-		}
-		for ($i = 0; $i <= 3; $i++) {
-			$this->column_n[$i] = rand(31, 45);
-		}
+		$this->setColumnB();
+		$this->setColumnI();
+		$this->setColumnN();
+		$this->setColumnG();
+		$this->setColumnO();
 	}
 
 
 	public function setColumnB()
 	{
+		$this->previous_numbers = [];
 		for ($i = 0; $i <= 4; $i++) {
 			$this->column_b[$i] = rand(1, 15);
+
+			foreach ($this->previous_numbers as $prev) {
+				while ($prev === $this->column_b[$i]) {
+					$this->column_b[$i] = rand(1, 15);
+				}
+			}
+			$this->previous_numbers[$i] = $this->column_b[$i];
 		}
 	}
 
@@ -40,8 +45,17 @@ class Card
 
 	public function setColumnI()
 	{
-		for ($i = 0; $i <= 3; $i++) {
+		$this->previous_numbers = [];
+		for ($i = 0; $i <= 4; $i++) {
 			$this->column_i[$i] = rand(16, 30);
+
+			foreach ($this->previous_numbers as $prev) {
+				while ($prev === $this->column_i[$i]) {
+
+					$this->column_i[$i] = rand(16, 30);
+				}
+			}
+			$this->previous_numbers[$i] = $this->column_i[$i];
 		}
 	}
 
@@ -52,9 +66,20 @@ class Card
 
 	public function setColumnN()
 	{
-
-		for ($i = 0; $i <= 3; $i++) {
+		$this->previous_numbers = [];
+		for ($i = 0; $i <= 4; $i++) {
 			$this->column_n[$i] = rand(31, 45);
+
+			foreach ($this->previous_numbers as $prev) {
+				while ($prev === $this->column_n[$i]) {
+
+					$this->column_n[$i] = rand(31, 45);
+				}
+			}
+			if ($i === 2) {
+				$this->column_n[$i] = 0;
+			}
+			$this->previous_numbers[$i] = $this->column_n[$i];
 		}
 	}
 
@@ -65,9 +90,17 @@ class Card
 
 	public function setColumnG()
 	{
-
+		$this->previous_numbers = [];
 		for ($i = 0; $i <= 4; $i++) {
 			$this->column_g[$i] = rand(46, 60);
+
+			foreach ($this->previous_numbers as $prev) {
+				while ($prev === $this->column_g[$i]) {
+
+					$this->column_g[$i] = rand(46, 60);
+				}
+			}
+			$this->previous_numbers[$i] = $this->column_g[$i];
 		}
 	}
 
@@ -78,9 +111,17 @@ class Card
 
 	public function setColumnO()
 	{
-
+		$this->previous_numbers = [];
 		for ($i = 0; $i <= 4; $i++) {
 			$this->column_o[$i] = rand(61, 75);
+
+			foreach ($this->previous_numbers as $prev) {
+				while ($prev === $this->column_o[$i]) {
+
+					$this->column_o[$i] = rand(61, 75);
+				}
+			}
+			$this->previous_numbers[$i] = $this->column_o[$i];
 		}
 	}
 
