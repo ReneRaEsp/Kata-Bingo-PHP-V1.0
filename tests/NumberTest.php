@@ -14,10 +14,30 @@ class NumberTest extends TestCase
 
 	public function test_can_call_out_numbers()
 	{
-		$this->number->setRandomNumber();
+		$this->setUp();
+		$calledNumber = $this->number->getRandomNumber();
 
-		$range = $this->number->getRandomNumber() >= 1 && $this->number->getRandomNumber() <= 75;
+		$range = $calledNumber >= 1 && $calledNumber <= 75;
 
 		$this->assertTrue($range);
+	}
+
+	public function test_numbers_cannot_be_repeated()
+	{
+		$this->setUp();
+		$previousNumbers = [];
+		$match = true;
+		for($i = 0; $i < 75 ; $i++) {
+			$actualNumber = new Number;
+			foreach( $previousNumbers as $previousNumber ){
+				if($previousNumber !== $actualNumber) {
+					$match = true;
+				} else {
+					$match = false;
+				}
+			}
+			$this->assertTrue($match);
+			$previousNumbers[$i] = $actualNumber;
+		}
 	}
 }
